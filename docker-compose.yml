@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  database:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    container_name: database_bankkk
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bankkk
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - ./build/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  queue:
+    image: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    container_name: queue
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
